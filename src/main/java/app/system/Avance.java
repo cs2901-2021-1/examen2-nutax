@@ -32,13 +32,16 @@ public class Avance {
             }
         }
 
-        final String resumenGeneral = "\nAvance: " + String.valueOf(100*((totalVacunadosCompletos+totalVacunadosParciales)/total)) + "%"
-                + "\nCobertura: " + String.valueOf(100*(totalVacunadosCompletos/total)) + "%"
-                + "\nCentros: " + String.valueOf(cantidadCentros)
-                + "\nCompletos: " + String.valueOf(totalVacunadosCompletos)
-                + "\nParciales: " + String.valueOf(totalVacunadosParciales);
+        StringBuilder resumenGeneral = new StringBuilder();
 
-        log.info(resumenGeneral);
+        resumenGeneral.append("\nAvance: ").append(100*((totalVacunadosCompletos+totalVacunadosParciales)/total)).append("%")
+                .append( "\nCobertura: ").append(100*(totalVacunadosCompletos/total)).append("%")
+                .append("\nCentros: ").append(cantidadCentros)
+                .append("\nCompletos: ").append(totalVacunadosCompletos)
+                .append("\nParciales: ").append(totalVacunadosParciales);
+
+        final String resultado = resumenGeneral.toString();
+        log.info(resultado);
 
     }
 
@@ -48,7 +51,6 @@ public class Avance {
 
         HashMap<String, Integer> porcentajes = new HashMap<>();
         for(var centro: centros.entrySet()){
-            var nombreCentro = centro.getKey();
             for(final var completo: centro.getValue().completos().entrySet()){
                 porcentajes.put(completo.getKey(), 100*(completo.getValue()/rangos.get(completo.getKey())));
             }
@@ -58,7 +60,8 @@ public class Avance {
         for(var porcentaje : porcentajes.entrySet()){
             resumenPorRangos.append("\n").append(porcentaje.getValue().toString()).append("%");
         }
-        log.info(resumenPorRangos.toString());
+        final String resultado = resumenPorRangos.toString();
+        log.info(resultado);
     }
 
 }
